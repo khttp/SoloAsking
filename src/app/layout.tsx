@@ -37,6 +37,9 @@ export default function RootLayout({
                 <Link href="/" className="text-foreground hover:text-primary">
                   Questions
                 </Link>
+                 <Link href="/unanswered" className="text-foreground hover:text-primary">
+                  Unanswered
+                </Link>
                 <Link href="/profile" className="text-foreground hover:text-primary">
                   Profile
                 </Link>
