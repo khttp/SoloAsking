@@ -126,30 +126,6 @@ export default function AskMe() {
             <Button type="submit">Submit Question</Button>
           </div>
         </form>
-
-        {questions.length > 0 ? (
-          questions.map((question) => (
-            <Card key={question.id} className="mb-4 bg-card">
-              <CardHeader>
-                <CardTitle>{question.question}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-sm text-muted-foreground">
-                  {question.anonymous
-                    ? "Anonymous"
-                    : question.username
-                      ? question.username
-                      : "Unknown"}
-                </CardDescription>
-                {question.answer && (
-                  <p className="text-sm mt-2">Answer: {question.answer}</p>
-                )}
-              </CardContent>
-            </Card>
-          ))
-        ) : (
-          <p className="text-muted-foreground">No questions available.</p>
-        )}
       </div>
     </div>
   );
