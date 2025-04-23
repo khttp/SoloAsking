@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { getQuestions } from "@/services/questions";
+import { useToast } from "@/hooks/use-toast";
 
 type Question = {
   id: string;
@@ -20,6 +21,7 @@ type Question = {
 
 export default function Questions() {
   const [questions, setQuestions] = useState<Question[]>([]);
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -28,7 +30,11 @@ export default function Questions() {
         setQuestions(questions);
       } catch (error) {
         console.error("Failed to fetch questions:", error);
-        // Consider adding a toast notification to inform the user about the error
+        toast({
+          title: "Error fetching questions!",
+          description: "Failed to load questions. Please try again.",
+          variant: "destructive",
+        });
       }
     };
 
@@ -37,7 +43,7 @@ export default function Questions() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-background">
-      <h1 className="text-2xl font-bold mb-4">All Questions</h1>
+      <h1 className="text-3xl font-bold mb-4 font-sans">All Questions</h1>
       <div className="w-full max-w-md">
         {questions.length > 0 ? (
           questions.map((question) => (
@@ -50,8 +56,8 @@ export default function Questions() {
                   {question.anonymous
                     ? "Anonymous"
                     : question.username
-                    ? question.username
-                    : "Unknown"}
+                      ? question.username
+                      : "Unknown"}
                 </CardDescription>
                 {question.answer && (
                   <p className="text-sm mt-2">
@@ -68,4 +74,3 @@ export default function Questions() {
     </div>
   );
 }
-

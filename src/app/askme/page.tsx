@@ -67,7 +67,7 @@ export default function AskMe() {
         anonymous: anonymous,
       };
       const newQuestionResponse = await addQuestion(questionData);
-      setQuestions((prevQuestions) => [...prevQuestions, newQuestionResponse]);
+      setQuestions((prevQuestions) => [...prevQuestions, newQuestionResponse, ]);
       setNewQuestion("");
       toast({
         title: "Success!",

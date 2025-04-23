@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google';
+import { Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Link from 'next/link';
 import { Toaster } from "@/components/ui/toaster"
 
-const poppins = Poppins({
-  weight: ['400', '500', '600', '700'],
+const playfairDisplay = Playfair_Display({
+  weight: ['400', '700'],
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-poppins',
+  variable: '--font-playfair-display',
 });
 
 export const metadata: Metadata = {
@@ -22,12 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} font-poppins antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${playfairDisplay.variable} font-playfairDisplay antialiased dark bg-background text-foreground`}>
         <header className="bg-card py-4 shadow-md sticky top-0 z-10">
           <div className="container mx-auto px-4">
             <nav className="flex items-center justify-between">
-              <Link href="/askme" className="text-xl font-bold text-foreground" style={{ fontFamily: 'Playwrite Australia SA' }}>
+              <Link
+                href="/askme"
+                className={`${playfairDisplay.variable} font-playfairDisplay text-xl font-bold text-foreground`}
+              >
                 SoloAsking
               </Link>
               <div className="space-x-4">
