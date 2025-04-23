@@ -7,7 +7,7 @@ import {Playfair_Display} from 'next/font/google';
 import {useAuth} from '@/contexts/AuthContext';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
 import {useTheme} from 'next-themes';
-import {Button} from "@/components/ui/button";
+import {Switch} from "@/components/ui/switch";
 import {Sun, Moon} from 'lucide-react';
 
 const playfairDisplay = Playfair_Display({
@@ -59,18 +59,18 @@ const ClientHeader = () => {
           </Link>
           <div className="space-x-4 flex items-center">
             <Link
-              href="/askme"
-              className={`text-foreground hover:text-primary ${pathname === '/askme' ? 'text-orange-500' : ''
-                }`}
-            >
-              AskMe
-            </Link>
-            <Link
               href="/questions"
               className={`text-foreground hover:text-primary ${pathname === '/questions' ? 'text-orange-500' : ''
                 }`}
             >
               Questions
+            </Link>
+            <Link
+              href="/askme"
+              className={`text-foreground hover:text-primary ${pathname === '/askme' ? 'text-orange-500' : ''
+                }`}
+            >
+              AskMe
             </Link>
             {isClient && (
               <>
@@ -86,14 +86,11 @@ const ClientHeader = () => {
                         <AvatarFallback>{getAvatarInitials()}</AvatarFallback>
                       </Avatar>
                     </Link>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                    >
-                      {theme === 'light' ? <Moon /> : <Sun />}
-                      <span className="sr-only">Toggle theme</span>
-                    </Button>
+                    <Switch
+                      id="theme"
+                      checked={theme === 'dark'}
+                      onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                    />
                   </div>
                 ) : (
                   <div className="flex items-center space-x-2">
@@ -103,14 +100,11 @@ const ClientHeader = () => {
                     >
                       Login\Register
                     </Link>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                    >
-                      {theme === 'light' ? <Moon /> : <Sun />}
-                      <span className="sr-only">Toggle theme</span>
-                    </Button>
+                    <Switch
+                      id="theme"
+                      checked={theme === 'dark'}
+                      onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                    />
                   </div>
                 )}
               </>
