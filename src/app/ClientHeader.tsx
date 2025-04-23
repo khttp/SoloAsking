@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
@@ -24,13 +24,28 @@ const ClientHeader = () => {
   const [isClient, setIsClient] = useState(false);
   const {theme, setTheme} = useTheme();
   const [mounted, setMounted] = useState(false);
+    const [isDark, setIsDark] = useState(false);
 
 
   useEffect(() => {
     setIsClient(true);
     setMounted(true);
+      if (theme === 'dark') {
+          setIsDark(true);
+      } else {
+          setIsDark(false);
+      }
+  }, [theme]);
 
-  }, []);
+    useEffect(() => {
+        if (mounted) {
+            if (theme === 'dark') {
+                setIsDark(true);
+            } else {
+                setIsDark(false);
+            }
+        }
+    }, [theme, mounted]);
 
     if (!mounted) {
         return null;
@@ -59,18 +74,18 @@ const ClientHeader = () => {
           </Link>
           <div className="space-x-4 flex items-center">
             <Link
-              href="/questions"
-              className={`text-foreground hover:text-primary ${pathname === '/questions' ? 'text-orange-500' : ''
-                }`}
-            >
-              Questions
-            </Link>
-            <Link
               href="/askme"
               className={`text-foreground hover:text-primary ${pathname === '/askme' ? 'text-orange-500' : ''
                 }`}
             >
               AskMe
+            </Link>
+            <Link
+              href="/questions"
+              className={`text-foreground hover:text-primary ${pathname === '/questions' ? 'text-orange-500' : ''
+                }`}
+            >
+              Questions
             </Link>
             {isClient && (
               <>
@@ -88,8 +103,11 @@ const ClientHeader = () => {
                     </Link>
                     <Switch
                       id="theme"
-                      checked={theme === 'dark'}
-                      onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                      checked={isDark}
+                      onCheckedChange={(checked) => {
+                          setIsDark(checked);
+                          setTheme(checked ? 'dark' : 'light');
+                      }}
                     />
                   </div>
                 ) : (
@@ -102,8 +120,11 @@ const ClientHeader = () => {
                     </Link>
                     <Switch
                       id="theme"
-                      checked={theme === 'dark'}
-                      onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                      checked={isDark}
+                      onCheckedChange={(checked) => {
+                          setIsDark(checked);
+                          setTheme(checked ? 'dark' : 'light');
+                      }}
                     />
                   </div>
                 )}
