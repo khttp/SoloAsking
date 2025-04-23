@@ -30,7 +30,7 @@ export default function RootLayout({
         <header className="bg-card py-4 shadow-md">
           <div className="container mx-auto px-4">
             <nav className="flex items-center justify-between">
-              <Link href="/" className="text-xl font-bold text-foreground">
+              <Link href="/askme" className="text-xl font-bold text-foreground">
                 SimpleAsk
               </Link>
               <div className="space-x-4">
