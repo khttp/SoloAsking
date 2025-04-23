@@ -42,6 +42,6 @@ export const addQuestion = async (questionData: {
     ...questionData,
     answer: null,
   };
-  questions.push(newQuestion);
+  questions = [...questions, newQuestion];
   return newQuestion;
 };
