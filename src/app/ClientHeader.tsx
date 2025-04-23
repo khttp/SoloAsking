@@ -61,18 +61,11 @@ const ClientHeader = () => {
             ) : (
               <>
                 <Link
-                  href="/register"
-                  className={`text-foreground hover:text-primary ${pathname === '/register' ? 'text-orange-500' : ''
-                    }`}
-                >
-                  Register
-                </Link>
-                <Link
                   href="/login"
                   className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''
                     }`}
                 >
-                  Login
+                  Login/Register
                 </Link>
               </>
             )}
@@ -84,3 +77,4 @@ const ClientHeader = () => {
 };
 
 export default ClientHeader;
+
