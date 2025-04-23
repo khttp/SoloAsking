@@ -28,18 +28,18 @@ export default function RootLayout({
           <div className="container mx-auto px-4">
             <nav className="flex items-center justify-between">
               <Link
-                href="/questions"
+                href="/askme"
                 className={`${playfairDisplay.variable} font-playfairDisplay text-xl font-bold text-foreground`}
               >
                 <span style={{ color: '#4285F4' }}>Solo</span>
                 <span style={{ color: '#FF5733' }}>Asking</span>
               </Link>
               <div className="space-x-4">
-                <Link href="/questions" className="text-foreground hover:text-primary">
-                  Questions
-                </Link>
                 <Link href="/askme" className="text-foreground hover:text-primary">
                   AskMe
+                </Link>
+                <Link href="/questions" className="text-foreground hover:text-primary">
+                  Questions
                 </Link>
                 <Link href="/profile" className="text-foreground hover:text-primary">
                   Profile
@@ -56,4 +56,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 
