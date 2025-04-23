@@ -3,6 +3,8 @@ import { Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import ClientHeader from './ClientHeader';
+import { AuthProvider } from '@/contexts/AuthContext';
+
 
 const playfairDisplay = Playfair_Display({
   weight: ['400', '700'],
@@ -27,11 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfairDisplay.variable} font-playfairDisplay antialiased dark bg-background text-foreground`}>
-        <ClientHeader />
-        <main className="container mx-auto px-4 py-8 mt-20">
-          {children}
-        </main>
-        <Toaster />
+        <AuthProvider>
+          <ClientHeader />
+          <main className="container mx-auto px-4 py-8 mt-20">
+            {children}
+          </main>
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );

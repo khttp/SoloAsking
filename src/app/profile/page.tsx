@@ -12,6 +12,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState, useEffect } from "react";
 import { getQuestions, updateQuestion } from "@/services/questions";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
+import LogoutButton from "@/components/auth/LogoutButton";
 
 type Question = {
   id: string;
@@ -26,14 +28,17 @@ export default function Profile() {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [answerText, setAnswerText] = useState("");
   const { toast } = useToast();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const allQuestions = await getQuestions(); // Fetch all questions
-        // Filter questions where the username matches or the question has an answer
+        const allQuestions = await getQuestions();
+        // Filter questions where the username matches the logged-in user's email or the question has an answer
         const filteredQuestions = allQuestions.filter(
-          (qa) => qa.username === "Anonymous" || qa.answer !== null || qa.username !== null // Show user-asked questions
+          (qa) =>
+            (qa.username === user?.email || (!qa.anonymous && qa.username !== null)) || // Questions asked by the user or with a specified username
+            qa.answer !== null // Questions answered by someone
         );
         setQuestionsAnswers(filteredQuestions);
       } catch (error) {
@@ -47,7 +52,7 @@ export default function Profile() {
     };
 
     fetchQuestions();
-  }, []);
+  }, [user]);
 
   const handleEdit = (index: number, currentAnswer: string) => {
     setEditingIndex(index);
@@ -81,9 +86,20 @@ export default function Profile() {
     }
   };
 
+  if (!user) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-background">
+        <h1 className="text-2xl font-bold mb-4">Please Login</h1>
+        <p>You need to be logged in to view this page.</p>
+        <Button><a href="/login">Login</a></Button>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-background">
-      <h1 className="text-2xl font-bold mb-4">All User Questions and Answers</h1>
+      <h1 className="text-2xl font-bold mb-4">Your Questions and Answers</h1>
+      <LogoutButton />
       <div className="w-full max-w-md">
         {questionsAnswers.map((qa, index) => (
           <Card key={qa.id} className="mb-4 bg-card">
