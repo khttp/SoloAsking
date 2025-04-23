@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} font-poppins antialiased`}>
-        <header className="bg-card py-4 shadow-md">
+        <header className="bg-card py-4 shadow-md sticky top-0 z-10">
           <div className="container mx-auto px-4">
             <nav className="flex items-center justify-between">
               <Link href="/askme" className="text-xl font-bold text-foreground">
@@ -52,3 +52,4 @@ export default function RootLayout({
     </html>
   );
 }
+
