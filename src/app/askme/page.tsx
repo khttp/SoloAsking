@@ -3,7 +3,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -14,6 +13,8 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 type Question = {
   id: string;
@@ -29,6 +30,9 @@ export default function AskMe() {
   const [username, setUsername] = useState("");
   const [anonymous, setAnonymous] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
+    const router = useRouter();
+
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -47,6 +51,21 @@ export default function AskMe() {
 
     fetchQuestions();
   }, []);
+
+    if (!user) {
+        useEffect(() => {
+            router.push('/login'); // Redirect to login if not authenticated
+        }, [router, user]);
+
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-background">
+                <h1 className="text-2xl font-bold mb-4">Please Login</h1>
+                <p>You need to be logged in to ask questions.</p>
+                <Button><a href="/login">Login</a></Button>
+            </div>
+        );
+    }
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +86,7 @@ export default function AskMe() {
         anonymous: anonymous,
       };
       const newQuestionResponse = await addQuestion(questionData);
-      setQuestions((prevQuestions) => [...prevQuestions, newQuestionResponse, ]);
+      setQuestions((prevQuestions) => [...prevQuestions, newQuestionResponse]);
       setNewQuestion("");
       toast({
         title: "Success!",
