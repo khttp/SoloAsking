@@ -45,3 +45,12 @@ export const addQuestion = async (questionData: {
   questions = [...questions, newQuestion];
   return newQuestion;
 };
+
+export const updateQuestion = async (
+  id: string,
+  updateData: { answer: string | null }
+) => {
+  questions = questions.map((question) =>
+    question.id === id ? { ...question, ...updateData } : question
+  );
+};
