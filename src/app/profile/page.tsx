@@ -9,25 +9,40 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getQuestions } from "@/services/questions";
 
-type QuestionAnswer = {
+type Question = {
+  id: string;
   question: string;
-  answer: string;
+  answer: string | null;
+  username: string | null;
+  anonymous: boolean;
 };
 
 export default function Profile() {
-  const [questionsAnswers, setQuestionsAnswers] = useState<QuestionAnswer[]>([
-    { question: "What is your favorite color?", answer: "Blue" },
-    { question: "What is your favorite food?", answer: "Pizza" },
-  ]);
-
+  const [questionsAnswers, setQuestionsAnswers] = useState<Question[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [answerText, setAnswerText] = useState("");
 
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const questions = await getQuestions(); // Fetch all questions
+        // Filter questions to only include those asked by the current user (replace with actual user identification logic)
+        const userQuestions = questions.filter((q) => q.username === "user1"); // Example: Filter by username "user1"
+        setQuestionsAnswers(userQuestions);
+      } catch (error) {
+        console.error("Failed to fetch questions:", error);
+      }
+    };
+
+    fetchQuestions();
+  }, []);
+
   const handleEdit = (index: number, currentAnswer: string) => {
     setEditingIndex(index);
-    setAnswerText(currentAnswer);
+    setAnswerText(currentAnswer || "");
   };
 
   const handleSave = (index: number) => {
@@ -69,10 +84,12 @@ export default function Profile() {
                 </div>
               ) : (
                 <div className="flex flex-col gap-2">
-                  <CardDescription className="text-foreground">{qa.answer}</CardDescription>
+                  <CardDescription className="text-foreground">
+                    {qa.answer || "No answer yet"}
+                  </CardDescription>
                   <div className="flex justify-end">
                     <Button
-                      onClick={() => handleEdit(index, qa.answer)}
+                      onClick={() => handleEdit(index, qa.answer || "")}
                       className="bg-secondary text-secondary-foreground hover:bg-secondary/80"
                     >
                       Answer
