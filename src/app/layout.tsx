@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster"
 import ClientHeader from './ClientHeader';
 import { AuthProvider } from '@/contexts/AuthContext';
 import React from 'react';
+import {ThemeProvider} from 'next-themes';
 
 
 const playfairDisplay = Playfair_Display({
@@ -28,16 +29,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfairDisplay.variable} font-playfairDisplay antialiased dark bg-background text-foreground`}>
-        <AuthProvider>
-          <ClientHeader />
-          <main className="container mx-auto px-4 py-8 mt-20">
-            {children}
-          </main>
-          <Toaster />
-        </AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthProvider>
+            <ClientHeader />
+            <main className="container mx-auto px-4 py-8 mt-20">
+              {children}
+            </main>
+            <Toaster />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
 }
-
-

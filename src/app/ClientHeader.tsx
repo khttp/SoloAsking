@@ -6,6 +6,9 @@ import React, {useEffect, useState} from 'react';
 import {Playfair_Display} from 'next/font/google';
 import {useAuth} from '@/contexts/AuthContext';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
+import {useTheme} from 'next-themes';
+import {Button} from "@/components/ui/button";
+import {SunIcon, MoonIcon} from '@radix-ui/react-icons';
 
 const playfairDisplay = Playfair_Display({
   weight: ['400', '700'],
@@ -19,6 +22,7 @@ const ClientHeader = () => {
   const pathname = usePathname();
   const {user} = useAuth();
   const [isClient, setIsClient] = useState(false);
+  const {theme, setTheme} = useTheme();
 
   useEffect(() => {
     setIsClient(true);
@@ -63,23 +67,43 @@ const ClientHeader = () => {
             {isClient && (
               <>
                 {user ? (
-                  <Link
-                    href="/profile"
-                    className={`text-foreground hover:text-primary ${pathname === '/profile' ? 'text-orange-500' : ''
-                    }`}
-                  >
-                    <Avatar className="w-8 h-8">
-                      <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn"/>
-                      <AvatarFallback>{getAvatarInitials()}</AvatarFallback>
-                    </Avatar>
-                  </Link>
+                  <div className="flex items-center space-x-2">
+                    <Link
+                      href="/profile"
+                      className={`text-foreground hover:text-primary ${pathname === '/profile' ? 'text-orange-500' : ''
+                      }`}
+                    >
+                      <Avatar className="w-8 h-8">
+                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn"/>
+                        <AvatarFallback>{getAvatarInitials()}</AvatarFallback>
+                      </Avatar>
+                    </Link>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                    >
+                      {theme === 'light' ? <MoonIcon/> : <SunIcon/>}
+                      <span className="sr-only">Toggle theme</span>
+                    </Button>
+                  </div>
                 ) : (
-                  <Link
-                    href="/login"
-                    className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''}`}
-                  >
-                    Login/Register
-                  </Link>
+                  <div className="flex items-center space-x-2">
+                    <Link
+                      href="/login"
+                      className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''}`}
+                    >
+                      Login\Register
+                    </Link>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                    >
+                      {theme === 'light' ? <MoonIcon/> : <SunIcon/>}
+                      <span className="sr-only">Toggle theme</span>
+                    </Button>
+                  </div>
                 )}
               </>
             )}
