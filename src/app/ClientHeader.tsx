@@ -23,10 +23,18 @@ const ClientHeader = () => {
   const {user} = useAuth();
   const [isClient, setIsClient] = useState(false);
   const {theme, setTheme} = useTheme();
+  const [mounted, setMounted] = useState(false);
+
 
   useEffect(() => {
     setIsClient(true);
+    setMounted(true);
+
   }, []);
+
+    if (!mounted) {
+        return null;
+    }
 
   const getAvatarInitials = () => {
     if (user?.displayName) {
