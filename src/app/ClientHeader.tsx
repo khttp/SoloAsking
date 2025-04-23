@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { Playfair_Display } from 'next/font/google';
+import { useAuth } from '@/contexts/AuthContext';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const playfairDisplay = Playfair_Display({
   weight: ['400', '700'],
@@ -15,6 +17,7 @@ const playfairDisplay = Playfair_Display({
 
 const ClientHeader = () => {
   const pathname = usePathname();
+  const { user } = useAuth();
 
   return (
     <header className="bg-card py-4 shadow-md fixed top-0 z-10 w-full">
@@ -27,7 +30,7 @@ const ClientHeader = () => {
             <span style={{ color: '#4285F4' }}>Solo</span>
             <span style={{ color: '#FF8533' }}>Asking</span>
           </Link>
-          <div className="space-x-4">
+          <div className="space-x-4 flex items-center">
             <Link
               href="/askme"
               className={`text-foreground hover:text-primary ${pathname === '/askme' ? 'text-orange-500' : ''
@@ -42,13 +45,37 @@ const ClientHeader = () => {
             >
               Questions
             </Link>
-            <Link
-              href="/profile"
-              className={`text-foreground hover:text-primary ${pathname === '/profile' ? 'text-orange-500' : ''
-                }`}
-            >
-              Profile
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  href="/profile"
+                  className={`text-foreground hover:text-primary ${pathname === '/profile' ? 'text-orange-500' : ''
+                    }`}
+                >
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                    <AvatarFallback>{user?.displayName?.slice(0, 2).toUpperCase() || 'UN'}</AvatarFallback>
+                  </Avatar>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/register"
+                  className={`text-foreground hover:text-primary ${pathname === '/register' ? 'text-orange-500' : ''
+                    }`}
+                >
+                  Register
+                </Link>
+                <Link
+                  href="/login"
+                  className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''
+                    }`}
+                >
+                  Login
+                </Link>
+              </>
+            )}
           </div>
         </nav>
       </div>
