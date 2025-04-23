@@ -3,6 +3,7 @@ import { Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Link from 'next/link';
 import { Toaster } from "@/components/ui/toaster"
+import { usePathname } from 'next/navigation';
 
 const playfairDisplay = Playfair_Display({
   weight: ['400', '700'],
@@ -21,6 +22,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfairDisplay.variable} font-playfairDisplay antialiased dark bg-background text-foreground`}>
@@ -35,13 +37,28 @@ export default function RootLayout({
                 <span style={{ color: '#FF8533' }}>Asking</span>
               </Link>
               <div className="space-x-4">
-                <Link href="/askme" className="text-foreground hover:text-primary">
+                <Link
+                  href="/askme"
+                  className={`text-foreground hover:text-primary ${
+                    pathname === '/askme' ? 'text-accent' : ''
+                  }`}
+                >
                   AskMe
                 </Link>
-                <Link href="/questions" className="text-foreground hover:text-primary">
+                <Link
+                  href="/questions"
+                  className={`text-foreground hover:text-primary ${
+                    pathname === '/questions' ? 'text-accent' : ''
+                  }`}
+                >
                   Questions
                 </Link>
-                <Link href="/profile" className="text-foreground hover:text-primary">
+                <Link
+                  href="/profile"
+                  className={`text-foreground hover:text-primary ${
+                    pathname === '/profile' ? 'text-accent' : ''
+                  }`}
+                >
                   Profile
                 </Link>
               </div>
@@ -56,5 +73,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-
