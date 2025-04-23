@@ -19,6 +19,16 @@ const ClientHeader = () => {
   const pathname = usePathname();
   const { user } = useAuth();
 
+  const getAvatarInitials = () => {
+    if (user?.displayName) {
+      const names = user.displayName.split(' ');
+      const firstNameInitial = names[0]?.charAt(0).toUpperCase() || '';
+      const lastNameInitial = names.length > 1 ? names[names.length - 1]?.charAt(0).toUpperCase() : '';
+      return firstNameInitial + lastNameInitial;
+    }
+    return 'UN';
+  };
+
   return (
     <header className="bg-card py-4 shadow-md fixed top-0 z-10 w-full">
       <div className="container mx-auto px-4">
@@ -54,7 +64,7 @@ const ClientHeader = () => {
                 >
                   <Avatar className="w-8 h-8">
                     <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                    <AvatarFallback>{user?.displayName?.slice(0, 2).toUpperCase() || 'UN'}</AvatarFallback>
+                    <AvatarFallback>{getAvatarInitials()}</AvatarFallback>
                   </Avatar>
                 </Link>
               </>
@@ -77,4 +87,3 @@ const ClientHeader = () => {
 };
 
 export default ClientHeader;
-
