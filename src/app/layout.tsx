@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import ClientHeader from './ClientHeader';
 import { AuthProvider } from '@/contexts/AuthContext';
+import React from 'react';
 
 
 const playfairDisplay = Playfair_Display({
@@ -18,8 +19,6 @@ export const metadata: Metadata = {
   description: 'A simple Q&A web app',
 };
 
-
-import React from 'react';
 
 export default function RootLayout({
   children,
@@ -40,3 +39,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+
