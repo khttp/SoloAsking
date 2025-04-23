@@ -34,7 +34,7 @@ export default function RootLayout({
                 SimpleAsk
               </Link>
               <div className="space-x-4">
-                <Link href="/" className="text-foreground hover:text-primary">
+                <Link href="/askme" className="text-foreground hover:text-primary">
                   AskMe
                 </Link>
                  <Link href="/questions" className="text-foreground hover:text-primary">
@@ -55,4 +55,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 
