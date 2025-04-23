@@ -33,7 +33,7 @@ export default function Profile() {
         const allQuestions = await getQuestions(); // Fetch all questions
         // Filter questions where the username matches or the question has an answer
         const filteredQuestions = allQuestions.filter(
-          (qa) => qa.username === "Anonymous" || qa.answer !== null
+          (qa) => qa.username === "Anonymous" || qa.answer !== null || qa.username !== null // Show user-asked questions
         );
         setQuestionsAnswers(filteredQuestions);
       } catch (error) {
