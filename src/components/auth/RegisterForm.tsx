@@ -24,12 +24,12 @@ const RegisterForm = () => {
     try {
       // Here you would typically send the additional data (firstName, lastName, age, country)
       // to your backend or Firebase along with the email and password.
-      await register(email, password);
+      await register(email, password, firstName, lastName, age, country);
       toast({
         title: 'Registration successful!',
         description: 'You are now registered.',
       });
-      router.push('/profile');
+      router.push('/login'); // Redirect to login after successful registration
     } catch (error: any) {
       toast({
         variant: 'destructive',

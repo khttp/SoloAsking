@@ -23,7 +23,7 @@ const LoginForm = () => {
         title: 'Login successful!',
         description: 'You are now logged in.',
       });
-      router.push('/profile');
+      router.push('/askme'); // Redirect to askme after successful login
     } catch (error: any) {
       toast({
         variant: 'destructive',
