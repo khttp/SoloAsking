@@ -9,6 +9,7 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
 import {useTheme} from 'next-themes';
 import {Button} from "@/components/ui/button";
 import {Sun, Moon} from 'lucide-react';
+import {ThemeProvider} from 'next-themes';
 
 const playfairDisplay = Playfair_Display({
   weight: ['400', '700'],
@@ -39,79 +40,82 @@ const ClientHeader = () => {
   };
 
   return (
-    <header className="bg-card py-4 shadow-md fixed top-0 z-10 w-full">
-      <div className="container mx-auto px-4">
-        <nav className="flex items-center justify-between">
-          <Link
-            href="/askme"
-            className={`${playfairDisplay.variable} font-playfairDisplay text-xl font-bold`}
-          >
-            <span style={{color: '#4285F4'}}>Solo</span>
-            <span style={{color: '#FF8533'}}>Asking</span>
-          </Link>
-          <div className="space-x-4 flex items-center">
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <header className="bg-card py-4 shadow-md fixed top-0 z-10 w-full">
+        <div className="container mx-auto px-4">
+          <nav className="flex items-center justify-between">
             <Link
               href="/askme"
-              className={`text-foreground hover:text-primary ${pathname === '/askme' ? 'text-orange-500' : ''
-              }`}
+              className={`${playfairDisplay.variable} font-playfairDisplay text-xl font-bold`}
             >
-              AskMe
+              <span style={{color: '#4285F4'}}>Solo</span>
+              <span style={{color: '#FF8533'}}>Asking</span>
             </Link>
-            <Link
-              href="/questions"
-              className={`text-foreground hover:text-primary ${pathname === '/questions' ? 'text-orange-500' : ''
-              }`}
-            >
-              Questions
-            </Link>
-            {isClient && (
-              <>
-                {user ? (
-                  <div className="flex items-center space-x-2">
-                    <Link
-                      href="/profile"
-                      className={`text-foreground hover:text-primary ${pathname === '/profile' ? 'text-orange-500' : ''
-                      }`}
-                    >
-                      <Avatar className="w-8 h-8">
-                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn"/>
-                        <AvatarFallback>{getAvatarInitials()}</AvatarFallback>
-                      </Avatar>
-                    </Link>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                    >
-                      {theme === 'light' ? <Moon/> : <Sun/>}
-                      <span className="sr-only">Toggle theme</span>
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="flex items-center space-x-2">
-                    <Link
-                      href="/login"
-                      className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''}`}
-                    >
-                      Login/Register
-                    </Link>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                    >
-                      {theme === 'light' ? <Moon/> : <Sun/>}
-                      <span className="sr-only">Toggle theme</span>
-                    </Button>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        </nav>
-      </div>
-    </header>
+            <div className="space-x-4 flex items-center">
+              <Link
+                href="/askme"
+                className={`text-foreground hover:text-primary ${pathname === '/askme' ? 'text-orange-500' : ''
+                  }`}
+              >
+                AskMe
+              </Link>
+              <Link
+                href="/questions"
+                className={`text-foreground hover:text-primary ${pathname === '/questions' ? 'text-orange-500' : ''
+                  }`}
+              >
+                Questions
+              </Link>
+              {isClient && (
+                <>
+                  {user ? (
+                    <div className="flex items-center space-x-2">
+                      <Link
+                        href="/profile"
+                        className={`text-foreground hover:text-primary ${pathname === '/profile' ? 'text-orange-500' : ''
+                          }`}
+                      >
+                        <Avatar className="w-8 h-8">
+                          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                          <AvatarFallback>{getAvatarInitials()}</AvatarFallback>
+                        </Avatar>
+                      </Link>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                      >
+                        {theme === 'light' ? <Moon /> : <Sun />}
+                        <span className="sr-only">Toggle theme</span>
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center space-x-2">
+                      <Link
+                        href="/login"
+                        className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''}`}
+                      >
+                        Login/Register
+                      </Link>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                      >
+                        {theme === 'light' ? <Moon /> : <Sun />}
+                        <span className="sr-only">Toggle theme</span>
+                      </Button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </nav>
+        </div>
+      </header>
+    </ThemeProvider>
   );
 };
 
 export default ClientHeader;
+
