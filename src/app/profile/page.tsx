@@ -30,8 +30,12 @@ export default function Profile() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const questions = await getQuestions(); // Fetch all questions
-        setQuestionsAnswers(questions);
+        const allQuestions = await getQuestions(); // Fetch all questions
+        // Filter questions where the username matches or the question has an answer
+        const filteredQuestions = allQuestions.filter(
+          (qa) => qa.username === "Anonymous" || qa.answer !== null
+        );
+        setQuestionsAnswers(filteredQuestions);
       } catch (error) {
         console.error("Failed to fetch questions:", error);
         toast({
