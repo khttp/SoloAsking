@@ -7,7 +7,7 @@ import {Playfair_Display} from 'next/font/google';
 import {useAuth} from '@/contexts/AuthContext';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
 import {useTheme} from 'next-themes';
-import {Switch} from "@/components/ui/switch";
+import {Button} from "@/components/ui/button";
 import {Sun, Moon} from 'lucide-react';
 
 const playfairDisplay = Playfair_Display({
@@ -24,28 +24,13 @@ const ClientHeader = () => {
   const [isClient, setIsClient] = useState(false);
   const {theme, setTheme} = useTheme();
   const [mounted, setMounted] = useState(false);
-    const [isDark, setIsDark] = useState(false);
 
 
   useEffect(() => {
     setIsClient(true);
     setMounted(true);
-      if (theme === 'dark') {
-          setIsDark(true);
-      } else {
-          setIsDark(false);
-      }
-  }, [theme]);
 
-    useEffect(() => {
-        if (mounted) {
-            if (theme === 'dark') {
-                setIsDark(true);
-            } else {
-                setIsDark(false);
-            }
-        }
-    }, [theme, mounted]);
+  }, []);
 
     if (!mounted) {
         return null;
@@ -101,14 +86,14 @@ const ClientHeader = () => {
                         <AvatarFallback>{getAvatarInitials()}</AvatarFallback>
                       </Avatar>
                     </Link>
-                    <Switch
-                      id="theme"
-                      checked={isDark}
-                      onCheckedChange={(checked) => {
-                          setIsDark(checked);
-                          setTheme(checked ? 'dark' : 'light');
-                      }}
-                    />
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                    >
+                      {theme === 'light' ? <Moon /> : <Sun />}
+                      <span className="sr-only">Toggle theme</span>
+                    </Button>
                   </div>
                 ) : (
                   <div className="flex items-center space-x-2">
@@ -118,14 +103,14 @@ const ClientHeader = () => {
                     >
                       Login\Register
                     </Link>
-                    <Switch
-                      id="theme"
-                      checked={isDark}
-                      onCheckedChange={(checked) => {
-                          setIsDark(checked);
-                          setTheme(checked ? 'dark' : 'light');
-                      }}
-                    />
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                    >
+                      {theme === 'light' ? <Moon /> : <Sun />}
+                      <span className="sr-only">Toggle theme</span>
+                    </Button>
                   </div>
                 )}
               </>
