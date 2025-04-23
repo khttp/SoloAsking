@@ -93,7 +93,7 @@ const ClientHeader = () => {
                       href="/login"
                       className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''}`}
                     >
-                      Login/Register
+                      Login\Register
                     </Link>
                     <Button
                       variant="outline"
