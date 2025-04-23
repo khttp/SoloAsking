@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { Playfair_Display } from 'next/font/google';
 import './globals.css';
-import Link from 'next/link';
 import { Toaster } from "@/components/ui/toaster"
-import { usePathname } from 'next/navigation';
+import ClientHeader from './ClientHeader';
 
 const playfairDisplay = Playfair_Display({
   weight: ['400', '700'],
@@ -17,54 +16,18 @@ export const metadata: Metadata = {
   description: 'A simple Q&A web app',
 };
 
+
+import React from 'react';
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfairDisplay.variable} font-playfairDisplay antialiased dark bg-background text-foreground`}>
-        <header className="bg-card py-4 shadow-md fixed top-0 z-10 w-full">
-          <div className="container mx-auto px-4">
-            <nav className="flex items-center justify-between">
-              <Link
-                href="/askme"
-                className={`${playfairDisplay.variable} font-playfairDisplay text-xl font-bold text-foreground`}
-              >
-                <span style={{ color: '#4285F4' }}>Solo</span>
-                <span style={{ color: '#FF8533' }}>Asking</span>
-              </Link>
-              <div className="space-x-4">
-                <Link
-                  href="/askme"
-                  className={`text-foreground hover:text-primary ${
-                    pathname === '/askme' ? 'text-accent' : ''
-                  }`}
-                >
-                  AskMe
-                </Link>
-                <Link
-                  href="/questions"
-                  className={`text-foreground hover:text-primary ${
-                    pathname === '/questions' ? 'text-accent' : ''
-                  }`}
-                >
-                  Questions
-                </Link>
-                <Link
-                  href="/profile"
-                  className={`text-foreground hover:text-primary ${
-                    pathname === '/profile' ? 'text-accent' : ''
-                  }`}
-                >
-                  Profile
-                </Link>
-              </div>
-            </nav>
-          </div>
-        </header>
+        <ClientHeader />
         <main className="container mx-auto px-4 py-8 mt-20">
           {children}
         </main>
