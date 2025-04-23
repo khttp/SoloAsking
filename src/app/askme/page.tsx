@@ -28,7 +28,7 @@ export default function AskMe() {
   const [newQuestion, setNewQuestion] = useState("");
   const [username, setUsername] = useState("");
   const [anonymous, setAnonymous] = useState(false);
-    const { toast } = useToast();
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -67,7 +67,7 @@ export default function AskMe() {
         anonymous: anonymous,
       };
       const newQuestionResponse = await addQuestion(questionData);
-      setQuestions((prevQuestions) => [...prevQuestions,newQuestionResponse]);
+      setQuestions((prevQuestions) => [...prevQuestions, newQuestionResponse]);
       setNewQuestion("");
       toast({
         title: "Success!",
@@ -138,8 +138,8 @@ export default function AskMe() {
                   {question.anonymous
                     ? "Anonymous"
                     : question.username
-                    ? question.username
-                    : "Unknown"}
+                      ? question.username
+                      : "Unknown"}
                 </CardDescription>
                 {question.answer && (
                   <p className="text-sm mt-2">Answer: {question.answer}</p>
