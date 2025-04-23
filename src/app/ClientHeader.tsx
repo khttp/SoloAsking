@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Playfair_Display} from 'next/font/google';
 import {useAuth} from '@/contexts/AuthContext';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
@@ -18,6 +18,11 @@ const playfairDisplay = Playfair_Display({
 const ClientHeader = () => {
   const pathname = usePathname();
   const {user} = useAuth();
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsUserLoggedIn(!!user);
+  }, [user]);
 
   const getAvatarInitials = () => {
     if (user?.displayName) {
@@ -55,7 +60,7 @@ const ClientHeader = () => {
             >
               Questions
             </Link>
-            {user ? (
+            {isUserLoggedIn ? (
               <>
                 <Link
                   href="/profile"
@@ -84,3 +89,5 @@ const ClientHeader = () => {
 };
 
 export default ClientHeader;
+
+    
