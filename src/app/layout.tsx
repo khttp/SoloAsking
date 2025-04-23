@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfairDisplay.variable} font-playfairDisplay antialiased dark bg-background text-foreground`}>
-        <header className="bg-card py-4 shadow-md sticky top-0 z-10">
+        <header className="bg-card py-4 shadow-md fixed top-0 z-10 w-full">
           <div className="container mx-auto px-4">
             <nav className="flex items-center justify-between">
               <Link
@@ -32,7 +32,7 @@ export default function RootLayout({
                 className={`${playfairDisplay.variable} font-playfairDisplay text-xl font-bold text-foreground`}
               >
                 <span style={{ color: '#4285F4' }}>Solo</span>
-                <span style={{ color: '#FF5733' }}>Asking</span>
+                <span style={{ color: '#FF8533' }}>Asking</span>
               </Link>
               <div className="space-x-4">
                 <Link href="/askme" className="text-foreground hover:text-primary">
@@ -48,7 +48,7 @@ export default function RootLayout({
             </nav>
           </div>
         </header>
-        <main className="container mx-auto px-4 py-8">
+        <main className="container mx-auto px-4 py-8 mt-20">
           {children}
         </main>
         <Toaster />
