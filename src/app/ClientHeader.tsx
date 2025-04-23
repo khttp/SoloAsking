@@ -18,11 +18,11 @@ const playfairDisplay = Playfair_Display({
 const ClientHeader = () => {
   const pathname = usePathname();
   const {user} = useAuth();
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsUserLoggedIn(!!user);
-  }, [user]);
+    setIsClient(true);
+  }, []);
 
   const getAvatarInitials = () => {
     if (user?.displayName) {
@@ -60,26 +60,28 @@ const ClientHeader = () => {
             >
               Questions
             </Link>
-            {isUserLoggedIn ? (
+            {isClient && (
               <>
-                <Link
-                  href="/profile"
-                  className={`text-foreground hover:text-primary ${pathname === '/profile' ? 'text-orange-500' : ''
-                  }`}
-                >
-                  <Avatar className="w-8 h-8">
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn"/>
-                    <AvatarFallback>{getAvatarInitials()}</AvatarFallback>
-                  </Avatar>
-                </Link>
+                {user ? (
+                  <Link
+                    href="/profile"
+                    className={`text-foreground hover:text-primary ${pathname === '/profile' ? 'text-orange-500' : ''
+                    }`}
+                  >
+                    <Avatar className="w-8 h-8">
+                      <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn"/>
+                      <AvatarFallback>{getAvatarInitials()}</AvatarFallback>
+                    </Avatar>
+                  </Link>
+                ) : (
+                  <Link
+                    href="/login"
+                    className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''}`}
+                  >
+                    Login\Register
+                  </Link>
+                )}
               </>
-            ) : (
-              <Link
-                href="/login"
-                className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''}`}
-              >
-                Login\Register
-              </Link>
             )}
           </div>
         </nav>
@@ -89,5 +91,3 @@ const ClientHeader = () => {
 };
 
 export default ClientHeader;
-
-    
