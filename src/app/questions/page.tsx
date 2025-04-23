@@ -59,11 +59,6 @@ export default function Questions() {
                       ? question.username
                       : "Unknown"}
                 </CardDescription>
-                {question.answer && (
-                  <p className="text-sm mt-2">
-                    Answer: {question.answer}
-                  </p>
-                )}
               </CardContent>
             </Card>
           ))
