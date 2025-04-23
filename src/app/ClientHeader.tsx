@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import {usePathname} from 'next/navigation';
 import React from 'react';
-import { Playfair_Display } from 'next/font/google';
-import { useAuth } from '@/contexts/AuthContext';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {Playfair_Display} from 'next/font/google';
+import {useAuth} from '@/contexts/AuthContext';
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
 
 const playfairDisplay = Playfair_Display({
   weight: ['400', '700'],
@@ -17,7 +17,7 @@ const playfairDisplay = Playfair_Display({
 
 const ClientHeader = () => {
   const pathname = usePathname();
-  const { user } = useAuth();
+  const {user} = useAuth();
 
   const getAvatarInitials = () => {
     if (user?.displayName) {
@@ -37,21 +37,21 @@ const ClientHeader = () => {
             href="/askme"
             className={`${playfairDisplay.variable} font-playfairDisplay text-xl font-bold`}
           >
-            <span style={{ color: '#4285F4' }}>Solo</span>
-            <span style={{ color: '#FF8533' }}>Asking</span>
+            <span style={{color: '#4285F4'}}>Solo</span>
+            <span style={{color: '#FF8533'}}>Asking</span>
           </Link>
           <div className="space-x-4 flex items-center">
             <Link
               href="/askme"
               className={`text-foreground hover:text-primary ${pathname === '/askme' ? 'text-orange-500' : ''
-                }`}
+              }`}
             >
               AskMe
             </Link>
             <Link
               href="/questions"
               className={`text-foreground hover:text-primary ${pathname === '/questions' ? 'text-orange-500' : ''
-                }`}
+              }`}
             >
               Questions
             </Link>
@@ -60,24 +60,21 @@ const ClientHeader = () => {
                 <Link
                   href="/profile"
                   className={`text-foreground hover:text-primary ${pathname === '/profile' ? 'text-orange-500' : ''
-                    }`}
+                  }`}
                 >
                   <Avatar className="w-8 h-8">
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn"/>
                     <AvatarFallback>{getAvatarInitials()}</AvatarFallback>
                   </Avatar>
                 </Link>
               </>
             ) : (
-              <>
-                <Link
-                  href="/login"
-                  className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''
-                    }`}
-                >
-                  Login/Register
-                </Link>
-              </>
+              <Link
+                href="/login"
+                className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''}`}
+              >
+                Login/Register
+              </Link>
             )}
           </div>
         </nav>
