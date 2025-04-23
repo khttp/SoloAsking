@@ -35,10 +35,10 @@ export default function RootLayout({
               </Link>
               <div className="space-x-4">
                 <Link href="/" className="text-foreground hover:text-primary">
-                  Questions
+                  AskMe
                 </Link>
-                 <Link href="/unanswered" className="text-foreground hover:text-primary">
-                  Unanswered
+                 <Link href="/questions" className="text-foreground hover:text-primary">
+                  Questions
                 </Link>
                 <Link href="/profile" className="text-foreground hover:text-primary">
                   Profile
@@ -55,3 +55,4 @@ export default function RootLayout({
     </html>
   );
 }
+

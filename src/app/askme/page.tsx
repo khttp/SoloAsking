@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { addQuestion } from "@/services/questions";
 import { useRouter } from "next/navigation";
+import { GeistSans } from 'next/font/google';
+
+const geist = GeistSans({ weight: '400', subsets: ['latin'] });
 
 export default function Home() {
   const [question, setQuestion] = useState("");
@@ -53,7 +56,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-background">
-      <h1 className="text-2xl font-bold mb-4">Ask Anything!</h1>
+      <h1 className={`${geist.className} text-2xl font-bold mb-4`}>Ask Anything!</h1>
       <div className="w-full max-w-md p-6 bg-card rounded-lg shadow-md">
         <div className="mb-4">
           <label
@@ -107,3 +110,4 @@ export default function Home() {
     </div>
   );
 }
+
