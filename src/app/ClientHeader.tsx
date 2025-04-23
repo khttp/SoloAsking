@@ -8,7 +8,7 @@ import {useAuth} from '@/contexts/AuthContext';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
 import {useTheme} from 'next-themes';
 import {Button} from "@/components/ui/button";
-import {SunIcon, MoonIcon} from '@radix-ui/react-icons';
+import {Sun, Moon} from 'lucide-react';
 
 const playfairDisplay = Playfair_Display({
   weight: ['400', '700'],
@@ -83,7 +83,7 @@ const ClientHeader = () => {
                       size="icon"
                       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
                     >
-                      {theme === 'light' ? <MoonIcon/> : <SunIcon/>}
+                      {theme === 'light' ? <Moon/> : <Sun/>}
                       <span className="sr-only">Toggle theme</span>
                     </Button>
                   </div>
@@ -93,14 +93,14 @@ const ClientHeader = () => {
                       href="/login"
                       className={`text-foreground hover:text-primary ${pathname === '/login' ? 'text-orange-500' : ''}`}
                     >
-                      Login\Register
+                      Login/Register
                     </Link>
                     <Button
                       variant="outline"
                       size="icon"
                       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
                     >
-                      {theme === 'light' ? <MoonIcon/> : <SunIcon/>}
+                      {theme === 'light' ? <Moon/> : <Sun/>}
                       <span className="sr-only">Toggle theme</span>
                     </Button>
                   </div>
